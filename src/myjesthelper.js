@@ -8,7 +8,6 @@ const runSuite = (suiteDescription) => (testDataArray) => describe(suiteDescript
     testDataArray.forEach((item, index) => runTest(item, suiteDescription))
 })
 
-
 module.exports = {
     runSubtest, runTest, runSuite
 }
