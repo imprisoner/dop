@@ -1,13 +1,7 @@
 //region My Framework
 
 const myJestHelper = require("../src/myjesthelper")
-// const {runSuite, runTest, runSubtest} = require("../myjesthelper");
-const {runSuite} = require("../src/myjesthelper");
-// const {runSubtest} = require("../myjesthelper");
-// const {runSuite, runTest, runSubtest} = require("../myjesthelper")
 
-
-// const MyJestHelper =
 
 //endregion
 
