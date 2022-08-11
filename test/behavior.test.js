@@ -3,7 +3,73 @@
 const myJestHelper = require("../src/myjesthelper")
 
 
+// const MyJestHelper =
+
 //endregion
+
+describe("Unit tests for queries", () => {
+    {
+        const Library = require("../src/purefunctions/library")
+
+        const libraryTestData = {
+            catalog: {
+                booksByIsbn: {
+                    "978-1779501127": {
+                        isbn: "978-1779501127",
+                        title: "Watchmen",
+                        publicationYear: 1987,
+                        authorIds: ["alan-moore",
+                            "dave-gibbons"]
+                    }
+                },
+                authorsById: {
+                    "alan-moore": {
+                        name: "Alan Moore",
+                        bookIsbns: ["978-1779501127"]
+                    },
+                    "dave-gibbons": {
+                        name: "Dave Gibbons",
+                        bookIsbns: ["978-1779501127"]
+                    }
+                }
+            }
+        }
+
+        const bookInfo = {
+            isbn: "978-1779501127",
+            title: "Watchmen",
+            authorNames: ["Alan Moore",
+                "Dave Gibbons"]
+        }
+
+        const present = "Watchmen"
+        const missing = "Batman"
+
+        const testData = {
+            data: libraryTestData,
+            subtests: [
+                {input: present, output: bookInfo},
+                {input: missing, output: []}
+            ],
+            descr: function (test_) {
+                return "(libraryTestData, 'Watchmen') ==> bookInfo"
+            },
+            toMatch: (data, input, expected) => expect(JSON.parse(sut_func(data, input))).toEqual(expected)
+        }
+
+        const sut_func = Library.searchBooksByTitleJSON
+
+        // runSuite('UserManagement.addMember')([testData])
+        // runTest(testData, 'UserManagement.addMember')
+
+        myJestHelper.runSubtest(testData)({input: missing, output: []})
+        myJestHelper.runSubtest(testData)({input: present, output: bookInfo})
+
+    }
+    {
+
+    }
+})
 
 describe("Unit tests for mutations", () => {
     const _ = require("lodash");
@@ -80,7 +146,7 @@ describe("Unit tests for mutations", () => {
     }
 
 
-    const sut_func = (data, input) => UserManagement.addMember(data, input)
+    const sut_func = UserManagement.addMember
 
 
     myJestHelper.runSuite('UserManagement.addMember')([emptyAddTestData, addingSuccessTestData, addingFailTestData])
@@ -89,20 +155,7 @@ describe("Unit tests for mutations", () => {
 //region Library tests
 
     {
-        // const Library = require("../src/purefunctions/library")
-        class Library {
-        }
-
-        Library.addMember = function (library, member) {
-            const currentUserManagement = _.get(library, "userManagement");
-            const nextUserManagement = UserManagement.addMember(
-                currentUserManagement,
-                member);
-            return _.set(library,
-                "userManagement",
-                nextUserManagement);
-        };
-
+        const Library = require("../src/purefunctions/library")
 
         const jessie = {
             email: "jessie@gmail.com",
@@ -145,7 +198,7 @@ describe("Unit tests for mutations", () => {
             toMatch: (data, input, expected) => expect(sut_func(data, input)).toEqual(expected)
         }
 
-        const sut_func = (data, input) => Library.addMember(data, input)
+        const sut_func = Library.addMember
 
         // runTest(testData, "Library.addMember")
         myJestHelper.runSuite('Library.addMember')([testData])
