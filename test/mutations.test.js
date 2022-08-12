@@ -42,7 +42,7 @@ describe("Unit tests for mutations", () => {
         const emptyAddTestData = {
             data: userManagementStateEmpty,
             subtests: [
-                {input: firstMember, expected: UserManagementStateOneMember}
+                { input: firstMember, expected: UserManagementStateOneMember }
             ],
             testDescription: "(userManagementStateEmpty, firstMember) ==> UserManagementStateOneMember",
             toMatch: (data, input, expected) => expect(sut_func(data, input)).toEqual(expected)
@@ -51,7 +51,7 @@ describe("Unit tests for mutations", () => {
         const addingSuccessTestData = {
             data: UserManagementStateOneMember,
             subtests: [
-                {input: franck, expected: UserManagementStateTwoMembers}
+                { input: franck, expected: UserManagementStateTwoMembers }
             ],
             testDescription: "(UserManagementStateOneMember, franck) ==> UserManagementStateTwoMembers",
             toMatch: (data, input, expected) => expect(sut_func(data, input)).toEqual(expected)
@@ -61,7 +61,7 @@ describe("Unit tests for mutations", () => {
         const addingFailTestData = {
             data: UserManagementStateOneMember,
             subtests: [
-                {input: firstMember, expected: "Member already exists."}
+                { input: firstMember, expected: "Member already exists." }
             ],
             testDescription: "(UserManagementStateOneMember, firstMember) ==> throws \"Member already exists.\"",
             toMatch: (data, input, expected) => expect(() => sut_func(data, input)).toThrow(expected)
@@ -116,7 +116,7 @@ describe("Unit tests for mutations", () => {
         const testData = {
             data: libraryStateBefore,
             subtests: [
-                {input: jessie, expected: LibraryStateAfter}
+                { input: jessie, expected: LibraryStateAfter }
             ],
             testDescription: "(libraryStateBefore, jessie) ==> LibraryStateAfter",
             toMatch: (data, input, expected) => expect(sut_func(data, input)).toEqual(expected)
