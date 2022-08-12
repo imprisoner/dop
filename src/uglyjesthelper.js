@@ -1,26 +1,12 @@
+
 const runSubtest = (testData) => (subtest) => test(JSON.stringify(subtest), () => {
     testData.toMatch(testData.data, subtest.input, subtest.expected)
 })
 
 const runTest = (testData) => {
-    for (let subtest in testData.subtests) {
-        describe(testData.testDescription, () => {
-            test(JSON.stringify(subtest), () =>
-                testData.toMatch(testData.data, subtest.input, subtest.expected)
-            )
-        })
+    for (let subtest of testData.subtests) {
+        describe(testData.testDescription, () => runSubtest(testData)(subtest))
     }
-
-    //    WHAT IS THE DIFFERENCE? CODE BELOW WORKS RIGHT
-
-    // testData.subtests.forEach(
-    //     (subtest, index) => describe(testData.testDescription, () => {
-    //                 test(JSON.stringify(subtest), () =>
-    //                     testData.toMatch(testData.data, subtest.input, subtest.expected)
-    //                 )
-    //             }
-    //         )
-    //     )
 }
 
 const runSuite = (suiteDescription) => (testDataArray) => describe(suiteDescription, () => {
