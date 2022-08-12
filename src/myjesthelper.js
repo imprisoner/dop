@@ -1,12 +1,15 @@
-
-const runSubtest = (testData) => (subtest) => test(testData.descr(subtest), () => {
-    testData.toMatch(testData.data, subtest.input, subtest.output)
+const runSubtest = (testData) => (subtest) => test(JSON.stringify(subtest), () => {
+    testData.toMatch(testData.data, subtest.input, subtest.expected)
 })
-const runTest = (testData, suiteDescription) => {
-    testData.subtests.forEach((item, index) => runSubtest(testData)(item))
+
+const runTest = (testData) => {
+    for (let subtest of testData.subtests) {
+        describe(testData.testDescription, () => runSubtest(testData)(subtest))
+    }
 }
+
 const runSuite = (suiteDescription) => (testDataArray) => describe(suiteDescription, () => {
-    testDataArray.forEach((item, index) => runTest(item, suiteDescription))
+    testDataArray.forEach((testData, index) => runTest(testData)) //, suiteDescription))
 })
 
 module.exports = {
