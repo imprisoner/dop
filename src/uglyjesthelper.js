@@ -1,11 +1,26 @@
-
 const runSubtest = (testData) => (subtest) => test(JSON.stringify(subtest), () => {
     testData.toMatch(testData.data, subtest.input, subtest.expected)
 })
 
+const output = (descrSet) => {
+    [data, input, expected] = descrSet.map(obj => {
+        return JSON.stringify(obj)
+            .replaceAll('"', '')
+            .replaceAll(':', ': ')
+            .replaceAll(',', ', ')
+            .replaceAll('{', '{ ')
+    })
+    // ''
+    return `\n${data},\n${input}\n==>\n${expected}`
+}
+
 const runTest = (testData) => {
-    for (let subtest of testData.subtests) {
-        describe(testData.testDescription, () => runSubtest(testData)(subtest))
+    for (let { input, expected } of testData.subtests) {
+        describe(testData.testDescription, () => {
+            test(output([testData.data, input, expected]), () =>
+                testData.toMatch(testData.data, input, expected)
+            )
+        })
     }
 }
 

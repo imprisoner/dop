@@ -1,4 +1,6 @@
-const myJestHelper = require("../src/uglyjesthelper");
+'use strict'
+// const myJestHelper = require("../src/uglyjesthelper");
+const myJestHelper = require("../src/myjesthelper");
 
 describe("Unit tests for queries", () => {
     {

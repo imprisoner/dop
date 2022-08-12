@@ -1,4 +1,6 @@
-const myJestHelper = require("../src/uglyjesthelper")
+'use strict'
+// const myJestHelper = require("../src/uglyjesthelper");
+const myJestHelper = require("../src/myjesthelper");
 
 describe("Unit tests for data manipulation", () => {
     const Catalog = require("../src/purefunctions/catalog");
@@ -17,8 +19,8 @@ describe("Unit tests for data manipulation", () => {
         const testDataExist = {
             data: catalogTestData,
             subtests: [
-                {input: [], expected: []},
                 {input: ["alan-moore"], expected: ["Alan Moore"]},
+                {input: [], expected: []},
                 {input: ["alan-moore", "dave-gibbons"], expected: ["Alan Moore", "Dave Gibbons"]},
                 {input: ["alan-moore", "albert-einstein"], expected: ["Alan Moore", undefined]},
                 {input: ["albert-einstein"], expected: [undefined]}
@@ -30,8 +32,8 @@ describe("Unit tests for data manipulation", () => {
         const testDataEmpty = {
             data: {},
             subtests: [
-                {input: [], expected: []},
-                {input: ["alan-moore"], expected: [undefined]}
+                {input: ["alan-moore"], expected: [undefined]},
+                {input: [], expected: []}
             ],
             testDescription: "If data empty",
             toMatch: (data, input, expected) => expect(sut_func(data, input)).toEqual(expected)
@@ -39,7 +41,6 @@ describe("Unit tests for data manipulation", () => {
 
         const sut_func = Catalog.authorNames
 
-        // myJestHelper.runSuite('Catalog.authorNames')([testDataExist, testDataEmpty])
         myJestHelper.runSuite('Catalog.authorNames')([testDataExist, testDataEmpty])
     }
 
@@ -69,8 +70,7 @@ describe("Unit tests for data manipulation", () => {
         const sut_func = Catalog.bookInfo
 
         describe("Catalog.bookInfo", () => {
-            // myJestHelper.runTest(testData)
-            myJestHelper.runTest(testData) //, "(catalogTestData, book) ==> expectedResult")
+            myJestHelper.runTest(testData)
         })
     }
 })
