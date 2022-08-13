@@ -1,3 +1,4 @@
+'use strict'
 const _ = require("lodash");
 const Catalog = require("./catalog");
 const UserManagement = require("./usermanagement");
@@ -30,16 +31,15 @@ class Library {
     }
 }
 
-
-
 Library.addMember = function(library, member) {
     const currentUserManagement = _.get(library, "userManagement");
     const nextUserManagement = UserManagement.addMember(
         currentUserManagement,
         member);
-    return _.set(library,
+    const nextLibrary = _.set(library,
         "userManagement",
         nextUserManagement);
+    return nextLibrary;
 };
 
 module.exports = Library
