@@ -22,31 +22,12 @@ const runTest = (testData) => {
             )
         })
     }
-
-    //    WHAT IS THE DIFFERENCE? CODE BELOW WORKS RIGHT
-
-    //      ========== ANSWER: the difference is 
-    //      << for key in object >> - objects loop
-    //      << for value of array >> - array loop
-
-    // testData.subtests.forEach(
-    //     (subtest, index) => describe(testData.testDescription, () => {
-    //                 test(JSON.stringify(subtest), () =>
-    //                     testData.toMatch(testData.data, subtest.input, subtest.expected)
-    //                 )
-    //             }
-    //         )
-    //     )
 }
 
 const runSuite = (suiteDescription) => (testDataArray) => describe(suiteDescription, () => {
     testDataArray.forEach((testData, index) => runTest(testData)) //, suiteDescription))
 })
 
-// 
-
-
-
 module.exports = {
-    runSubtest, runTest, runSuite, output
+    runSubtest, runTest, runSuite
 }

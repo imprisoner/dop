@@ -1,3 +1,4 @@
+'use strict'
 const _ = require("lodash");
 
 class UserManagement {
@@ -22,11 +23,10 @@ UserManagement.addMember = function (userManagement, member) {
     if(_.has(userManagement, infoPath)) {
         throw "Member already exists."
     }
-    return _.set(
-        userManagement,
+    var nextUserManagement = _.set(userManagement,
         infoPath,
-        member
-    )
+        member);
+    return nextUserManagement;
 }
 
 module.exports = UserManagement
