@@ -134,15 +134,15 @@ describe("Unit tests for mutations", () => {
         // myJestHelper.runSuite('Library.addMember')([testData])
     }
 
+
+
     {
-        const system = require("../src/system");
-        // const SystemState = require("../src/system");
+        const {System, SystemState} = require("../src/system");
 
         var systemState = new SystemState();
         systemState.commit(null, libraryStateBefore);
         System.addMember(systemState, jessie);
         _.isEqual(systemState.get(),
             libraryStateAfter);
-
     }
 })

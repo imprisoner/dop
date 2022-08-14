@@ -10,15 +10,13 @@ _ = fp.convert({
 });
 
 
-
 class System {
-    addMember(member) {
-        const previous = SystemState.get();
-        const next = Library.addMember(previous, member);
-        SystemState.commit(previous, next);
+    addMember = (systemState, member) => {
+        var previous = systemState.get();
+        var next = Library.addMember(previous, member);
+        systemState.commit(previous, next);
     }
 }
-
 
 //
 // class SystemState {
@@ -44,37 +42,50 @@ class System {
 // }
 
 
-class SystemState {
+    class
+    SystemState {
     systemData;
+
     get() {
         return this.systemData;
     }
+
     set(_systemData) {
         this.systemData = _systemData;
     }
+
     commit(previous, next) {
         const nextSystemData = SystemConsistency.reconcile(
             this.systemData,
             previous,
             next);
-        if(!SystemValidity.validate(previous, nextSystemData)) {
+        if (!SystemValidity.validate(previous, nextSystemData)) {
             throw "The system data to be committed is not valid!";
         }
         this.systemData = nextSystemData;
     }
 }
 
+class SystemValidity {
+
+    static validate(previous, nextSystemData) {
+        return true;
+    }
+}
+
+
 class SystemConsistency {
     static threeWayMerge(current, previous, next) {
         var previousToCurrent = diff(previous, current);
         var previousToNext = diff(previous, next);
-        if(havePathInCommon(previousToCurrent, previousToNext)) {
+        if (havePathInCommon(previousToCurrent, previousToNext)) {
             return _.merge(current, previousToNext);
         }
         throw "Conflicting concurrent mutations.";
     }
+
     static reconcile(current, previous, next) {
-        if(current == previous) {
+        if (current == previous) {
             return next;
         }
         return SystemConsistency.threeWayMerge(current,
