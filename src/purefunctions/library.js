@@ -31,14 +31,25 @@ class Library {
     }
 }
 
+//TODO remove console.log
 Library.addMember = function(library, member) {
+    // console.log('library <0> ', library)
+
     const currentUserManagement = _.get(library, "userManagement");
+    // console.log('currentUserManagement <1> ', currentUserManagement)
+
     const nextUserManagement = UserManagement.addMember(
         currentUserManagement,
         member);
+
+    // console.log('nextUserManagement <2> ', nextUserManagement)
+
     const nextLibrary = _.set(library,
         "userManagement",
         nextUserManagement);
+
+    // console.log('nextLibrary <3> ', JSON.stringify(nextLibrary))
+
     return nextLibrary;
 };
 

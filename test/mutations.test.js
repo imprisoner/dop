@@ -84,7 +84,7 @@ describe("Unit tests for mutations", () => {
     const jessie = {
         email: "jessie@gmail.com",
         password: "my-secret"
-    };
+    }
 
     const libraryStateBefore = {
         userManagement: {
@@ -110,7 +110,7 @@ describe("Unit tests for mutations", () => {
                 }
             }
         }
-    };
+    }
 
 
     {
@@ -132,17 +132,5 @@ describe("Unit tests for mutations", () => {
         })
 
         // myJestHelper.runSuite('Library.addMember')([testData])
-    }
-
-    {
-        const system = require("../src/system");
-        // const SystemState = require("../src/system");
-
-        var systemState = new SystemState();
-        systemState.commit(null, libraryStateBefore);
-        System.addMember(systemState, jessie);
-        _.isEqual(systemState.get(),
-            libraryStateAfter);
-
     }
 })
